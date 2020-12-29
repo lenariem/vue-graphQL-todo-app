@@ -20,6 +20,8 @@
   "homepage": "https://github.com/lenariem/vue-mySQL-todo-app#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.4.0",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5"
   },
