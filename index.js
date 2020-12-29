@@ -16,7 +16,8 @@ app.use(express.json())
 //to use graphql
 app.use(graphqlHTTP({
   schema: schema,
-  rootValue: resolver
+  rootValue: resolver,
+  graphiql: true
 }))
 
 //to use index.html
