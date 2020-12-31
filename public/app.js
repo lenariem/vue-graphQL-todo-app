@@ -82,15 +82,25 @@ new Vue({
         
       },
       completeTodo(id) {
-        fetch('/api/todo/' + id, {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({done: true})
+        const query = `
+          mutation {
+            completeTodo(id: "${id}") {
+              updatedAt
+            }
+          }
+        `
+        fetch('/graphql', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ query })
         })
           .then(res => res.json())
-          .then(({todo}) => {
-            const idx = this.todos.findIndex(item => item.id === todo.id)
-            this.todos[idx].updateAt = todo.updateAt
+          .then(response => {
+            const idx = this.todos.findIndex(item => item.id === id)
+            this.todos[idx].updatedAt = response.data.completeTodo.updatedAt
           })
           .catch(err => console.log(err))
       }
