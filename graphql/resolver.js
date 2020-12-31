@@ -42,7 +42,7 @@ module.exports = {
                 done: false
             })
           
-        } catch (e) {
+        } catch (err) {
             throw new Error('Title is required')
         }
    },
@@ -53,8 +53,21 @@ module.exports = {
         await todo.save()
         return todo
         
-       } catch (e) {
+       } catch (err) {
         throw new Error('ID is required')
+       }
+   },
+   async deleteTodo({id}) {
+       try {
+           const todos = await Todo.findAll({
+               where: {id}
+           })
+           await todos[0].destroy()
+           return true
+           
+       } catch (err) {
+            throw new Error('ID is required')
+            return false
        }
    }
 }
